@@ -1,3 +1,82 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "next",
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": ["prettier", "simple-import-sort", "import"],
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaFeatures": {
+      "jsx": true,
+      "tsx": true
+    },
+    "ecmaVersion": 6,
+    "project": ["./tsconfig.json", "./tsconfig.eslint.json"]
+  },
+  "rules": {
+    "prettier/prettier": ["warn"],
+    "no-undef": [1],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/extensions": 0,
+    "import/no-unresolved": "error",
+    "import/no-extraneous-dependencies": "warn",
+    "jsx-a11y/control-has-associated-label": "off",
+    "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0,
+    "import/prefer-default-export": "off",
+    "react/no-unescaped-entities": "off"
+  },
+  "ignorePatterns": ["*.config.js", "*.config.json"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"] // Adjust if you have a specific tsconfig for ESLint
+      },
+      "rules": {
+        // TypeScript specific rules
+        "@typescript-eslint/dot-notation": "error"
+        // ... other TypeScript specific rules
+      }
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+        // ... other JS/JSX file patterns
+      ],
+      "rules": {
+        // JavaScript specific rules
+        "@typescript-eslint/dot-notation": "off"
+        // ... other JS specific rules that might conflict with TS rules
+      }
+    },
+    {
+      "files": [
+        "commitlint.config.js",
+        "ecosystem.config.js",
+        "next.config.js",
+        "postcss.config.js",
+        "tailwind.config.js"
+        // ... other configuration files or non-TS files
+      ],
+      "rules": {
+        // Configuration files or non-TS file specific overrides
+        "@typescript-eslint/dot-notation": "off"
+        // ... other overrides
+      }
+    }
+  ]
 }
