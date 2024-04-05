@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -14,11 +15,11 @@ export function Navbar() {
     },
     {
       name: 'My Sound',
-      path: 'my-sound',
+      path: '/my-sound',
     },
     {
       name: 'Favourite',
-      path: 'favourite',
+      path: '/favourite',
     },
   ]
   return (
@@ -38,7 +39,12 @@ export function Navbar() {
         ))}
         <Button type="primary">+ Upload</Button>
       </div>
-      <div>Hi Hiera</div>
+      <div className="flex flex-row items-center justify-center gap-2">
+        <div className="relative h-7 w-7">
+          <Image src="/images/era.png" fill className="rounded-full" alt="profil" />
+        </div>
+        Hi, Hiera
+      </div>
     </div>
   )
 }
