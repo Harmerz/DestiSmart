@@ -1,10 +1,8 @@
-import { getServerSession, NextAuthOptions, Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import { getServerSession, NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
 import { axios } from '@/lib/axios'
 import { ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS } from '@/lib/const'
-import { refreshAccessToken } from '@/lib/refreshAccessToken'
 
 export const authOption: NextAuthOptions = {
   providers: [
@@ -12,15 +10,15 @@ export const authOption: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'Email' },
+        identifier: { label: 'Identifier', type: 'text', placeholder: 'Identifier' },
         password: { label: 'Password', type: 'password', placeholder: 'Password' },
       },
       async authorize(credentials) {
         try {
           const res = await axios.post(
-            '/auth/login',
+            '/user/signin',
             {
-              email: credentials?.email,
+              identifier: credentials?.identifier,
               password: credentials?.password,
             },
             {
@@ -30,28 +28,29 @@ export const authOption: NextAuthOptions = {
             },
           )
           /* eslint-disable */
-          const data = res.data.data
+          const data = res.data
+          console.log(data)
 
-          if (!data.user.is_active) {
+          if (!data.user.isVerified) {
             throw new Error(
               JSON.stringify({
                 error: 'ACCOUNT_NOT_ACTIVED',
                 message: 'You account has not been activated',
                 username: data.user.username ?? data.user.email,
-                activated: data.user.is_active,
+                isVerified: data.user.isVerified,
               }),
             )
           }
 
-          const role = data.user.is_admin ? 'admin' : 'user'
+          const role = data.role
 
           return {
             id: data.user._id,
+            name: data.user.name,
             email: data.user.email,
             username: data.user.username ?? data.user.email,
             role,
-            accessToken: data.access_token,
-            refreshToken: data.refresh_token,
+            accessToken: data.user.verificationToken,
             accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
           }
         } catch (err) {
@@ -78,54 +77,29 @@ export const authOption: NextAuthOptions = {
       if (user) return true
       return false
     },
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
+        console.log(user)
         return {
           ...token,
+          name: user.name,
+          email: user.email,
           username: user.username,
           role: user.role,
           accessToken: user.accessToken,
           accessTokenExpires: user.accessTokenExpires,
-          refreshToken: user.refreshToken,
-          bridgeStatus: user.bridgeStatus,
         }
       }
 
-      if (Date.now() > token.accessTokenExpires) {
-        return {
-          ...token,
-          accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS, // expand access token expire
-          accessToken: await refreshAccessToken(token.refreshToken),
-        }
-      }
-
-      if (trigger === 'update') {
-        // Update on trigger
-        const sessionData = session as Session
-
-        return {
-          ...sessionData.user,
-        } as JWT
-      }
-
-      // console.log('here')
-      // Return previous token if the access token has not expired yet
       return token
     },
     async session({ session, token }) {
-      // console.log('Session Callback', { session, token })
-
-      // This permission is curently not used
-      // const permissionRes = await axios.get('/account/permissions', {
-      //   headers: { Authorization: `Bearer ${token.accessToken}` },
-      // })
-
-      // const permissionData = permissionRes.data.data.roles
-
       return {
         ...session,
         user: {
           ...session.user,
+          name: token.name,
+          email: token.email,
           username: token.username,
           role: token.role,
           accessToken: token.accessToken,
@@ -171,8 +145,6 @@ export const authOption: NextAuthOptions = {
   },
   pages: {
     signIn: '/signin',
-    newUser: '/welcome',
-    // error: '/auth/error',
   },
 }
 

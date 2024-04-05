@@ -1,5 +1,5 @@
 // Access token expire. Example: 60 means access_token expire after a minute (60 second)
-export const ACCESS_TOKEN_EXP = 60 * 60 // in sekon
+export const ACCESS_TOKEN_EXP = 60 * 60 * 24 // in sekon
 export const ACCESS_TOKEN_EXP_IN_MS = ACCESS_TOKEN_EXP * 1000 // in ms
 
 /**
