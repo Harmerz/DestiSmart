@@ -3,7 +3,7 @@ import { IoSearch } from 'react-icons/io5'
 import { CardMusic } from '@/app/my-sound/_CardMusic'
 import { Navbar } from '@/components/elements'
 
-export default function DiscoverPage() {
+export default function MySoundPage() {
   return (
     <div className="h-screen w-full bg-blue-900">
       <Navbar />

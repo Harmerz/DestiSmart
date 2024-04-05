@@ -1,6 +1,6 @@
 import { Button, Navbar } from '@/components/elements'
 
-export default function DiscoverPage() {
+export default function UploadPage() {
   return (
     <div className="h-full min-h-screen w-full bg-blue-900 pb-20">
       <Navbar />
