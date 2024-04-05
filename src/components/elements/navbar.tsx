@@ -37,7 +37,9 @@ export function Navbar() {
             <div className="px-4 py-1">{item.name}</div>
           </Link>
         ))}
-        <Button type="primary">+ Upload</Button>
+        <Link href="/upload">
+          <Button type="primary">+ Upload</Button>
+        </Link>
       </div>
       <div className="flex flex-row items-center justify-center gap-2">
         <div className="relative h-7 w-7">
