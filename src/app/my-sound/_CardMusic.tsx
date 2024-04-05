@@ -21,7 +21,7 @@ export function CardMusic() {
       <div className="ml-4 flex flex-row gap-5">
         {play ? (
           <button type="button" onClick={() => setPlay(!play)}>
-            <IoStopCircle className="text-flowkit-red h-5 w-5" />
+            <IoStopCircle className="h-5 w-5 text-flowkit-red" />
           </button>
         ) : (
           <button type="button" onClick={() => setPlay(!play)}>
