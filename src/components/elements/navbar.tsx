@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 import { Button } from './button'
 
 export function Navbar() {
+  const { data: session } = useSession()
   const pathname = usePathname()
   const route = [
     {
@@ -45,7 +47,7 @@ export function Navbar() {
         <div className="relative h-7 w-7">
           <Image src="/images/era.png" fill className="rounded-full" alt="profil" />
         </div>
-        Hi, Hiera
+        Hi, {session?.user?.name}
       </div>
     </div>
   )
