@@ -6,10 +6,19 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { IoDownloadOutline, IoHeart, IoHeartOutline, IoPlay, IoStopCircle } from 'react-icons/io5'
 
-export function CardMusic({ item, now, setNow }: any) {
+import { useAddToFavourite, useDelFromFavourite } from '@/hooks/favourite'
+
+export function CardMusic({ item, now, setNow, fav }: any) {
   const [like, setLike] = useState<boolean>(false)
   const [play, setPlay] = useState<boolean>(false)
+  const { mutate: addFavourite } = useAddToFavourite()
+  const { mutate: deleteFavourite } = useDelFromFavourite()
   const audioRef = useRef<HTMLAudioElement>(null)
+  useEffect(() => {
+    if (fav?.find((e: any) => e._id === item?._id)) {
+      setLike(true)
+    }
+  }, [fav])
 
   const playAudio = () => {
     if (audioRef.current) {
@@ -54,7 +63,7 @@ export function CardMusic({ item, now, setNow }: any) {
       <div className="relative aspect-square h-full rounded-lg">
         <Image src={item?.image} fill alt="meme" className="rounded-lg" />
       </div>
-      <div className="mr-4 flex flex-col gap-1">
+      <div className="mr-4 flex flex-grow flex-col gap-1">
         <p className="text-sm font-bold">{item?.title}</p>
         <p className="text-xs">{item?.desc}</p>
       </div>
@@ -82,11 +91,23 @@ export function CardMusic({ item, now, setNow }: any) {
           </button>
         )}
         {like ? (
-          <button type="button" onClick={() => setLike(!like)}>
+          <button
+            type="button"
+            onClick={() => {
+              deleteFavourite(item?._id)
+              setLike(!like)
+            }}
+          >
             <IoHeart className="h-5 w-5 text-pink-900" />
           </button>
         ) : (
-          <button type="button" onClick={() => setLike(!like)}>
+          <button
+            type="button"
+            onClick={() => {
+              setLike(!like)
+              addFavourite(item?._id)
+            }}
+          >
             <IoHeartOutline className="h-5 w-5" />
           </button>
         )}

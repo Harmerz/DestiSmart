@@ -1,44 +1,63 @@
-import { AxiosRequestConfig } from 'axios'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useAccessToken } from '@/hooks/auth'
 import { useApiMutation2 } from '@/hooks/useApiMutation'
 import { axios } from '@/lib/axios'
 
-const config: AxiosRequestConfig = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-}
-
-export const useNewSounds = () => {
+export const useAddToFavourite = () => {
   const { accessToken, headers } = useAccessToken()
+  const queryClient = useQueryClient()
+
   return useApiMutation2({
-    queryKey: ['/sounds/upload'],
-    mutationFun: async (_, data) => {
+    queryKey: ['/fav/add'],
+    mutationFun: async (_, soundId) => {
       if (!accessToken) {
         return null
       }
-      const res = await axios.post('/sounds/upload', data, {
-        headers,
-        ...config.headers,
-      })
+      const res = await axios.post(
+        `/fav/addtofavourite/${soundId}`,
+        {},
+        {
+          headers,
+        },
+      )
       return res?.data
+    },
+    options: {
+      onSuccess: () => {
+        // Invalidate and refetch 'atensis' query
+        queryClient.invalidateQueries({ queryKey: ['/sounds/getfav'] })
+      },
+      // ... other options ...
     },
   })
 }
 
-export const useProcessQuestions = () => {
+export const useDelFromFavourite = () => {
   const { accessToken, headers } = useAccessToken()
+  const queryClient = useQueryClient()
+
   return useApiMutation2({
-    queryKey: ['questions'],
-    mutationFun: async (_, data) => {
+    queryKey: ['/fav/delete'],
+    mutationFun: async (_, soundId) => {
       if (!accessToken) {
         return null
       }
-      const res = await axios.delete(`/sounds/delete/${data}`, {
-        headers,
-      })
-      return res
+      const res = await axios.post(
+        `/fav/deletefromfav/${soundId}`,
+        {},
+        {
+          headers,
+        },
+      )
+      return res?.data
+    },
+    options: {
+      onSuccess: () => {
+        // Invalidate and refetch 'atensis' query
+        queryClient.invalidateQueries({ queryKey: ['/sounds/getfav'] })
+      },
+      // ... other options ...
     },
   })
 }

@@ -5,10 +5,13 @@ import { IoSearch } from 'react-icons/io5'
 
 import { CardMusic } from '@/app/discover/_CardMusic'
 import { Navbar } from '@/components/elements'
+import { useGetFav } from '@/hooks/favourite'
 import { useGetAllSounds } from '@/hooks/soundserver'
 
 export default function DiscoverPage() {
   const { data } = useGetAllSounds()
+  const { data: dataFavourite } = useGetFav()
+
   const [now, setNow] = useState('')
   return (
     <div className="h-screen w-full bg-blue-900">
@@ -30,7 +33,13 @@ export default function DiscoverPage() {
           </div>
           <div className="my-7 grid grid-cols-2 gap-x-10 gap-y-7">
             {data?.data?.sounds?.map((item: any) => (
-              <CardMusic item={item} key={item._id} now={now} setNow={setNow} />
+              <CardMusic
+                item={item}
+                key={item._id}
+                now={now}
+                setNow={setNow}
+                fav={dataFavourite?.data?.soundMetadata}
+              />
             ))}
           </div>
         </div>

@@ -6,9 +6,12 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { IoDownloadOutline, IoHeart, IoHeartOutline, IoPlay, IoStopCircle } from 'react-icons/io5'
 
+import { useDelFromFavourite } from '@/hooks/favourite'
+
 export function CardMusic({ item, now, setNow }: any) {
-  const [like, setLike] = useState<boolean>(false)
+  const [like, setLike] = useState<boolean>(true)
   const [play, setPlay] = useState<boolean>(false)
+  const { mutate: deleteFavourite } = useDelFromFavourite()
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const playAudio = () => {
@@ -54,7 +57,7 @@ export function CardMusic({ item, now, setNow }: any) {
       <div className="relative aspect-square h-full rounded-lg">
         <Image src={item?.image} fill alt="meme" className="rounded-lg" />
       </div>
-      <div className="mr-4 flex flex-col gap-1">
+      <div className="mr-4 flex flex-grow flex-col gap-1">
         <p className="text-sm font-bold">{item?.title}</p>
         <p className="text-xs">{item?.desc}</p>
       </div>
@@ -82,7 +85,13 @@ export function CardMusic({ item, now, setNow }: any) {
           </button>
         )}
         {like ? (
-          <button type="button" onClick={() => setLike(!like)}>
+          <button
+            type="button"
+            onClick={() => {
+              setLike(!like)
+              deleteFavourite(item?._id)
+            }}
+          >
             <IoHeart className="h-5 w-5 text-pink-900" />
           </button>
         ) : (

@@ -6,7 +6,7 @@ import { axios } from '@/lib/axios'
 export const useGetFav = () => {
   const { accessToken, headers } = useAccessToken()
   return useQuery({
-    queryKey: ['/sounds/getonesound'],
+    queryKey: ['/sounds/getfav'],
     queryFn: async () => {
       const res = await axios.get(`/fav/getfav`, {
         headers,

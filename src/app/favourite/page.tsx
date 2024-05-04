@@ -9,7 +9,6 @@ import { useGetFav } from '@/hooks/favourite'
 
 export default function FavouritePage() {
   const { data } = useGetFav()
-  console.log(data)
   const [now, setNow] = useState('')
   return (
     <div className="h-screen w-full bg-blue-900">
