@@ -1,9 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 
 import { CardMusic } from '@/app/my-sound/_CardMusic'
 import { Navbar } from '@/components/elements'
+import { useGetSoundByOwner } from '@/hooks/soundserver'
 
 export default function MySoundPage() {
+  const { data } = useGetSoundByOwner()
+  const [now, setNow] = useState('')
   return (
     <div className="h-screen w-full bg-blue-900">
       <Navbar />
@@ -23,13 +29,9 @@ export default function MySoundPage() {
             </button>
           </div>
           <div className="my-7 grid grid-cols-2 gap-x-10 gap-y-7">
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
+            {data?.data?.sounds?.map((item: any) => (
+              <CardMusic item={item} key={item._id} now={now} setNow={setNow} />
+            ))}
           </div>
         </div>
       </div>
