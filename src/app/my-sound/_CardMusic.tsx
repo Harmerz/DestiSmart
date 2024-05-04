@@ -54,7 +54,7 @@ export function CardMusic({ item, now, setNow }: any) {
       <div className="relative aspect-square h-full rounded-lg">
         <Image src={item?.image} fill alt="meme" className="rounded-lg" />
       </div>
-      <div className="mr-4 flex flex-col gap-1">
+      <div className="mr-4 flex flex-grow flex-col gap-1">
         <p className="text-sm font-bold">{item?.title}</p>
         <p className="text-xs">{item?.desc}</p>
       </div>

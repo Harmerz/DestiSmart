@@ -18,6 +18,7 @@ export function CardMusic({ item, now, setNow, fav }: any) {
     if (fav?.find((e: any) => e._id === item?._id)) {
       setLike(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fav])
 
   const playAudio = () => {
