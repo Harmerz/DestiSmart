@@ -36,7 +36,8 @@
     "react/jsx-props-no-spreading": 0,
     "react/require-default-props": 0,
     "import/prefer-default-export": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-underscore-dangle": "off"
   },
   "ignorePatterns": ["*.config.js", "*.config.json"],
   "overrides": [
