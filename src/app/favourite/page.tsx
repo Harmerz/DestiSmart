@@ -1,9 +1,16 @@
+'use client'
+
+import { useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 
 import { CardMusic } from '@/app/favourite/_CardMusic'
 import { Navbar } from '@/components/elements'
+import { useGetFav } from '@/hooks/favourite'
 
 export default function FavouritePage() {
+  const { data } = useGetFav()
+  console.log(data)
+  const [now, setNow] = useState('')
   return (
     <div className="h-screen w-full bg-blue-900">
       <Navbar />
@@ -30,13 +37,9 @@ export default function FavouritePage() {
             </div>
           </div>
           <div className="my-7 grid grid-cols-2 gap-x-10 gap-y-7">
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
+            {data?.data?.soundMetadata?.map((item: any) => (
+              <CardMusic item={item} key={item._id} now={now} setNow={setNow} />
+            ))}
           </div>
         </div>
       </div>
