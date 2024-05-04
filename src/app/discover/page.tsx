@@ -1,9 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 
 import { CardMusic } from '@/app/discover/_CardMusic'
 import { Navbar } from '@/components/elements'
+import { useGetAllSounds } from '@/hooks/soundserver'
 
 export default function DiscoverPage() {
+  const { data } = useGetAllSounds()
+  const [now, setNow] = useState('')
   return (
     <div className="h-screen w-full bg-blue-900">
       <Navbar />
@@ -23,13 +29,9 @@ export default function DiscoverPage() {
             </button>
           </div>
           <div className="my-7 grid grid-cols-2 gap-x-10 gap-y-7">
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
-            <CardMusic />
+            {data?.data?.sounds?.map((item: any) => (
+              <CardMusic item={item} key={item._id} now={now} setNow={setNow} />
+            ))}
           </div>
         </div>
       </div>
