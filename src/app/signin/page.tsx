@@ -15,7 +15,9 @@ export default function SigninPages() {
     identifier: '',
     password: '',
   })
-  const onFinish = async () => {
+  const [wrong, setWrong] = useState(false)
+  const onFinish = async (e: any) => {
+    e.preventDefault()
     try {
       const res = await signIn('credentials', {
         redirect: false,
@@ -24,18 +26,27 @@ export default function SigninPages() {
       })
       if (!res?.error) {
         router.refresh()
+      } else {
+        setWrong(true)
+        setTimeout(() => {
+          setWrong(false)
+        }, 3000)
       }
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/no-throw-literal
       throw console.error(err)
     }
+    console.log(wrong)
   }
   return (
     <div className="h-full min-h-screen w-full bg-blue-900 pb-20 pt-20">
       <div className="flex w-full justify-center">
         <div className="flex w-full flex-col items-center justify-center">
           <p className="text-2xl font-bold">Login</p>
-          <div className="mt-5 flex w-full max-w-[426px] flex-col gap-6 rounded bg-blue-700 p-6">
+          <form
+            onSubmit={onFinish}
+            className="mt-5 flex w-full max-w-[426px] flex-col gap-6 rounded bg-blue-700 p-6"
+          >
             <div className="flex w-full flex-col gap-2">
               <p>Username</p>
               <input
@@ -62,11 +73,11 @@ export default function SigninPages() {
                 }
               />
             </div>
-
-            <Button type="primary" onClick={onFinish}>
+            {wrong && <p className="text-red-500">Wrong Username or Password</p>}
+            <Button buttonType="submit" type="primary">
               Login
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

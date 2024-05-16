@@ -12,8 +12,11 @@ interface IUser extends DefaultUser {
   role: NextauthRole
   // Access token
   accessToken: string
+  refreshToken: string
+
   // Time to regenerate the accessToken
   accessTokenExpires: number
+  refreshTokenExpires: number
 }
 declare module 'next-auth' {
   interface User extends IUser {}

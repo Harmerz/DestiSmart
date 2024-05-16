@@ -8,6 +8,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cs1100320016d775b19.blob.core.windows.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   async redirects() {

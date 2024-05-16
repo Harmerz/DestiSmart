@@ -1,8 +1,14 @@
 import { getServerSession, NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
+import NextAuth from 'next-auth/react'
 
 import { axios } from '@/lib/axios'
-import { ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS } from '@/lib/const'
+import {
+  ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
+  REFRESH_TOKEN_EXP_AUTH_OPTION_IN_MS,
+} from '@/lib/const'
+
+import { refreshAccessToken } from './lib/refreshAccessToken'
 
 export const authOption: NextAuthOptions = {
   providers: [
@@ -50,6 +56,8 @@ export const authOption: NextAuthOptions = {
             email: data.user.email,
             username: data.user.username ?? data.user.email,
             role,
+            refreshToken: data.user.refreshToken,
+            refreshTokenExpires: Date.now() + REFRESH_TOKEN_EXP_AUTH_OPTION_IN_MS,
             accessToken: data.user.verificationToken,
             accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
           }
@@ -70,24 +78,40 @@ export const authOption: NextAuthOptions = {
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 7 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async signIn({ user }) {
+      console.log(user)
       if (user) return true
       return false
     },
     async jwt({ token, user }: { token: any; user: any }) {
+      console.log(Date.now(), token.accessTokenExpires, token.refreshTokenExpires)
       if (user) {
-        console.log(user)
         return {
           ...token,
-          name: user.name,
-          email: user.email,
           username: user.username,
           role: user.role,
           accessToken: user.accessToken,
           accessTokenExpires: user.accessTokenExpires,
+          refreshToken: user.refreshToken,
+          refreshTokenExpires: user.refreshTokenExpires,
+        }
+      }
+      // Sign out if the refresh token has expired
+      if (Date.now() > token.refreshTokenExpires) {
+        await NextAuth?.signOut() // Ensure you have imported NextAuth correctly
+        return // Stop further execution as sign-out is processed
+      }
+      if (
+        Date.now() > token.accessTokenExpires ||
+        token.accessToken === 'RefreshAccessTokenError'
+      ) {
+        return {
+          ...token,
+          accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS, // expand access token expire
+          accessToken: await refreshAccessToken(token.refreshToken),
         }
       }
 
@@ -108,12 +132,7 @@ export const authOption: NextAuthOptions = {
       }
     },
   },
-  events: {
-    signOut(message) {
-      console.log('signout auth')
-      console.log(message.token)
-    },
-  },
+
   cookies: {
     sessionToken: {
       name: 'next-auth.session-token',

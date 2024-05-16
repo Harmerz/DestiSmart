@@ -1,12 +1,17 @@
 // Access token expire. Example: 60 means access_token expire after a minute (60 second)
-export const ACCESS_TOKEN_EXP = 60 * 60 * 24 // in sekon
+export const ACCESS_TOKEN_EXP = 60 * 30 // in sekon
 export const ACCESS_TOKEN_EXP_IN_MS = ACCESS_TOKEN_EXP * 1000 // in ms
+
+export const REFREH_TOKEN_EXP = 60 * 60 * 24 * 7 // in sekon
+export const REFREH_TOKEN_EXP_IN_MS = REFREH_TOKEN_EXP * 1000 // in ms
 
 /**
  * ACCESS_TOKEN_EXP_AUTH_OPTION < ACCESS_TOKEN_EXP_AUTH_REVALIDATE
  * This is for handle user that have slow internet speed
  */
 export const ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS = ACCESS_TOKEN_EXP_IN_MS - 10000
+export const REFRESH_TOKEN_EXP_AUTH_OPTION_IN_MS = REFREH_TOKEN_EXP_IN_MS - 10000
+
 export const ACCESS_TOKEN_EXP_AUTH_REVALIDATE = ACCESS_TOKEN_EXP - 3
 
 /**

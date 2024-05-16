@@ -3,11 +3,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 import { Button } from './button'
 
 export function Navbar() {
+  const [click, setClick] = useState<boolean>(false)
   const { data: session } = useSession()
   const pathname = usePathname()
   const route = [
@@ -43,12 +45,25 @@ export function Navbar() {
           <Button type="primary">+ Upload</Button>
         </Link>
       </div>
-      <div className="flex flex-row items-center justify-center gap-2">
+      <button
+        type="button"
+        onClick={() => setClick(!click)}
+        className="relative flex flex-row items-center justify-center gap-2"
+      >
         <div className="relative h-7 w-7">
           <Image src="/images/era.png" fill className="rounded-full" alt="profil" />
         </div>
         Hi, {session?.user?.name}
-      </div>
+        {click && (
+          <button
+            onClick={() => signOut()}
+            type="button"
+            className="absolute top-[120%] rounded bg-blue-500 px-4 py-2 text-red-700"
+          >
+            Sign Out
+          </button>
+        )}
+      </button>
     </div>
   )
 }

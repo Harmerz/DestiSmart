@@ -1,13 +1,14 @@
 import { axios } from './axios'
 
 export async function refreshAccessToken(refreshToken: string) {
+  console.log('Refresh Bang')
   try {
     const result = await axios.post(
-      '/auth/refresh-token',
+      '/user/refresh-token',
       {},
       { headers: { Authorization: `Bearer ${refreshToken}` } },
     )
-    const newAccessToken: string = result.data.data.access_token
+    const newAccessToken: string = result.data.accessToken
     return newAccessToken
   } catch {
     return 'RefreshAccessTokenError'
