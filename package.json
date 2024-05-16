@@ -15,6 +15,7 @@
     "@tanstack/react-query-next-experimental": "^5.29.2",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "antd": "^5.17.2",
     "axios": "^1.6.8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
