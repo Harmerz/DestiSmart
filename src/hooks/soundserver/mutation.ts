@@ -29,6 +29,7 @@ export const useNewSounds = () => {
 
 export const useDeleteSounds = () => {
   const { accessToken, headers } = useAccessToken()
+
   return useApiMutation2({
     queryKey: ['questions'],
     mutationFun: async (_, soundId) => {

@@ -22,7 +22,7 @@ export default function UploadPage() {
   const openNotificationWithIcon = useCallback(
     (title: string) => {
       api.success({
-        message: 'Music Upload',
+        message: 'Sound Upload',
         description: `Berhasil Mengupload ${title}`,
       })
     },

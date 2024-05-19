@@ -58,7 +58,7 @@ export function Navbar() {
           <button
             onClick={() => signOut()}
             type="button"
-            className="absolute top-[120%] rounded bg-blue-500 px-4 py-2 text-red-700"
+            className="absolute top-[120%] rounded bg-red-500 px-4 py-2 text-white"
           >
             Sign Out
           </button>
