@@ -18,7 +18,7 @@ export default function FavouritePage() {
           <div className="flex w-full flex-row justify-between border-b pb-4">
             <div className="flex flex-col">
               <p className="text-3xl font-bold"> Favourites</p>
-              <p>{data?.data?.soundMetadata?.length} Sounds</p>
+              <p>{data?.data?.soundMetadata?.filter((e: any) => e !== null)?.length} Sounds</p>
             </div>
 
             <div className="flex h-11 w-1/2 flex-row gap-3 px-2">
