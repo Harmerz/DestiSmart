@@ -51,15 +51,15 @@ export const authOption: NextAuthOptions = {
           const role = data.role
 
           return {
-            id: data.user._id,
-            name: data.user.name,
-            email: data.user.email,
-            username: data.user.username ?? data.user.email,
+            id: data?.user?._id,
+            name: data?.user?.name,
+            email: data?.user?.email,
+            username: data?.user?.username ?? data?.user?.email,
             role,
-            refreshToken: data.user.refreshToken,
-            refreshTokenExpires: Date.now() + REFRESH_TOKEN_EXP_AUTH_OPTION_IN_MS,
-            accessToken: data.user.verificationToken,
-            accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
+            refreshToken: data?.user?.refreshToken,
+            refreshTokenExpires: Date?.now() + REFRESH_TOKEN_EXP_AUTH_OPTION_IN_MS,
+            accessToken: data?.user?.verificationToken,
+            accessTokenExpires: Date?.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
           }
         } catch (err) {
           // console.log(err)

@@ -76,7 +76,7 @@ export function CardMusic({ item, now, setNow }: any) {
           <button
             type="button"
             onClick={() => {
-              setNow(item._id)
+              setNow(item?._id)
               setPlay(!play)
               playAudio()
             }}

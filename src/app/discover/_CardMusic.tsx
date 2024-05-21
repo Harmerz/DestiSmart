@@ -15,7 +15,7 @@ export function CardMusic({ item, now, setNow, fav }: any) {
   const { mutate: deleteFavourite } = useDelFromFavourite()
   const audioRef = useRef<HTMLAudioElement>(null)
   useEffect(() => {
-    if (fav?.find((e: any) => e._id === item?._id)) {
+    if (fav?.find((e: any) => e?._id === item?._id)) {
       setLike(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +83,7 @@ export function CardMusic({ item, now, setNow, fav }: any) {
           <button
             type="button"
             onClick={() => {
-              setNow(item._id)
+              setNow(item?._id)
               setPlay(!play)
               playAudio()
             }}

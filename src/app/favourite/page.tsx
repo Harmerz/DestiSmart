@@ -37,7 +37,7 @@ export default function FavouritePage() {
           </div>
           <div className="my-7 grid grid-cols-2 gap-x-10 gap-y-7">
             {data?.data?.soundMetadata?.map((item: any) => (
-              <CardMusic item={item} key={item._id} now={now} setNow={setNow} />
+              <CardMusic item={item} key={item?._id} now={now} setNow={setNow} />
             ))}
           </div>
         </div>

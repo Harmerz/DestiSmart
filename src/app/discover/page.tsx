@@ -35,7 +35,7 @@ export default function DiscoverPage() {
             {data?.data?.sounds?.map((item: any) => (
               <CardMusic
                 item={item}
-                key={item._id}
+                key={item?._id}
                 now={now}
                 setNow={setNow}
                 fav={dataFavourite?.data?.soundMetadata}
