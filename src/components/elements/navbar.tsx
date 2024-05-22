@@ -28,7 +28,9 @@ export function Navbar() {
   ]
   return (
     <div className="flex w-full flex-row justify-between bg-blue-900 px-16 py-6">
-      <div>Logo</div>
+      <div className="relative aspect-[849/189] h-8">
+        <Image src="/logo.png" fill alt="logo" />
+      </div>
       <div className="flex flex-row justify-center gap-3">
         {route.map((item) => (
           <Link
