@@ -15,7 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        <main className="w-screen">
+          <div className="mx-auto flex min-h-screen max-w-[414px] overflow-x-hidden">
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   )
