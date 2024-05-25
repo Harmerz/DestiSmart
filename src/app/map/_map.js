@@ -8,11 +8,9 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility'
 // END: Preserve spaces to avoid auto-sorting
 import { MapContainer, useMapEvents, Marker, Popup, TileLayer, CircleMarker } from 'react-leaflet'
-import { useState } from 'react'
 
-export default function Map() {
+export default function Map({ position, setPosition, locate }) {
   function LocationMarker() {
-    const [position, setPosition] = useState(null)
     const map = useMapEvents({
       click() {
         map.locate()
@@ -46,11 +44,11 @@ export default function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          This Marker icon is displayed correctly with <i>leaflet-defaulticon-compatibility</i>.
-        </Popup>
-      </Marker>
+      {locate.map((e) => (
+        <Marker key={e} position={e?.location}>
+          <Popup>{e.name}</Popup>
+        </Marker>
+      ))}
       <LocationMarker />
     </MapContainer>
   )

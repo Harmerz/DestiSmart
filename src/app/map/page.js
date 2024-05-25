@@ -5,46 +5,97 @@ import data from './data.json'
 import Image from 'next/image'
 import { TbLocationShare } from 'react-icons/tb'
 import { BottomBar } from '@/components/bottomBar'
+import { calculateDistance } from './_calculate'
+import { useEffect, useState } from 'react'
+import { LuLoader2 } from 'react-icons/lu'
 
 const LazyMap = dynamic(() => import('@/app/map/_map'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => (
+    <div>
+      <LuLoader2 className="h-10 w-10 animate-spin text-main" />
+    </div>
+  ),
 })
 
 export default function Home() {
+  const [position, setPosition] = useState(null)
+  const [locate, setLocate] = useState(data)
+  const [displayCount, setDisplayCount] = useState(10)
+
+  useEffect(() => {
+    if (position) {
+      // const updatedLocate = locate
+      //   .map((e) => {
+      //     const [lat, lon] = e.location
+      //     return {
+      //       ...e,
+      //       distance: calculateDistance(position?.lat, position?.lng, lat, lon),
+      //     }
+      //   })
+      //   .sort((a, b) => a.distance - b.distance)
+      // setLocate(updatedLocate)
+    }
+  }, [position])
+
+  // Simulasi pengaturan posisi (Anda bisa menggantinya dengan logika yang sesuai)
+  useEffect(() => {
+    const examplePosition = [-7.797068, 110.370529] // Ganti dengan posisi yang diinginkan
+    setPosition(examplePosition)
+  }, [])
+
+  const loadMore = () => {
+    setDisplayCount(displayCount + 10)
+  }
+  console.log(position, locate)
+
   return (
-    <main className="relative flex w-full items-center justify-center bg-background">
-      {/* <LazyMap /> */}
+    <div className="flex h-full w-full flex-col items-center justify-center bg-background">
+      <div className="flex h-[80vh] w-full items-center justify-center">
+        <LazyMap
+          position={position}
+          setPosition={setPosition}
+          locate={locate?.slice(0, displayCount)}
+        />
+      </div>
       <BottomBar />
-      <div className="z-10 flex h-screen w-full">
-        <div className="flex h-screen w-full flex-col items-center self-end justify-self-end overflow-y-auto rounded-t-xl bg-white px-6">
+      <div className="z-10 flex h-full w-full overflow-x-hidden">
+        <div className="flex h-full w-full flex-col items-center justify-end overflow-hidden rounded-t-xl bg-white px-6">
           <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30" />
-          <div className="mt-6 flex w-full flex-col gap-2">
-            <p className="text-start text-2xl text-black">Tempat Terdekat dengan Anda</p>
-            {data?.map((e) => (
-              <div key={e} className="flex flex-row gap-2 rounded border bg-white p-2 shadow-md">
-                <div className="relative flex aspect-[4/3] min-h-[100px] rounded-sm">
+          <p className="text-start text-2xl text-black">Tempat Terdekat dengan Anda</p>
+          <div className="mt-6 flex h-full w-full flex-col gap-2 overflow-hidden">
+            {data?.slice(0, 4).map((item, index) => (
+              <div key={index} className="flex w-full flex-row gap-2 rounded border bg-white p-1">
+                <div className="relative flex aspect-[4/3] min-h-[100px] w-full rounded-sm">
                   <Image
-                    src={`/assets/wisata/${e?.name?.toLowerCase().replace(/ /g, '-')}.jpg`}
-                    alt={e.name}
+                    src={`/assets/wisata/${item?.name?.toLowerCase().replace(/ /g, '-')}.jpg`}
+                    alt={item.name}
                     fill
                     className="rounded-sm object-cover"
                   />
                 </div>
-                <div className="flex flex-col text-black">
+                <div className="flex w-full flex-col text-black">
                   <div className="flex flex-row items-center justify-between">
-                    <h3 className="flex font-bold">{e?.name}</h3>{' '}
+                    <h3 className="font-bold">{item?.name}</h3>
                     <div className="flex flex-row items-center justify-center gap-1 text-[10px] text-gray-400">
-                      <TbLocationShare /> 18km
+                      <TbLocationShare /> {item?.distance?.toFixed(2) ?? '0'} km
                     </div>
                   </div>
-                  <p className="line-clamp-3 text-sm">{e?.description}</p>
+                  <p className="line-clamp-3 text-sm">{item?.description}</p>
                 </div>
               </div>
             ))}
+            {/* {displayCount < locate.length && (
+              <button
+                onClick={loadMore}
+                className="mt-4 rounded border border-blue-500 bg-white p-2 text-blue-500"
+              >
+                Load More
+              </button>
+            )} */}
           </div>
         </div>
       </div>
-    </main>
+    </div>
   )
 }
