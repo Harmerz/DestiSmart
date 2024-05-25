@@ -1,9 +1,6 @@
-'use client'
-
-import { FaArrowUp } from 'react-icons/fa'
-import { useState } from 'react'
+import { FaArrowUp, FaArrowLeft } from 'react-icons/fa'
 import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
+import Link from 'next/link'
 
 export default function ChatPage() {
   const messsages = [
@@ -68,9 +65,15 @@ export default function ChatPage() {
   ]
   return (
     <div className="text-md relative flex h-screen w-full flex-col bg-background pb-14">
+      <div className="flex flex-row items-center gap-2 rounded-b-lg border-b border-white bg-background px-2 py-4">
+        <Link href="/home">
+          <FaArrowLeft className="h-5 w-5 text-white" />
+        </Link>
+        Tempat Wisata
+      </div>
       <div className="flex h-full flex-col gap-4 overflow-y-auto px-3">
         {messsages?.map((e) => (
-          <>
+          <div key={e} className="flex flex-col gap-2">
             <div className="ml-auto flex h-auto w-fit rounded-[20px] bg-slate-800 px-3 py-2">
               {e?.prompt}
             </div>
@@ -80,7 +83,7 @@ export default function ChatPage() {
               </div>
               <div className="w-4/5">{e?.response}</div>
             </div>
-          </>
+          </div>
         ))}
       </div>
 
