@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import data from './data.json'
 import Image from 'next/image'
 import { TbLocationShare } from 'react-icons/tb'
+import { BottomBar } from '@/components/bottomBar'
+
 const LazyMap = dynamic(() => import('@/app/map/_map'), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -13,6 +15,7 @@ export default function Home() {
   return (
     <main className="relative flex w-full items-center justify-center bg-background">
       {/* <LazyMap /> */}
+      <BottomBar />
       <div className="z-10 flex h-screen w-full">
         <div className="flex h-screen w-full flex-col items-center self-end justify-self-end overflow-y-auto rounded-t-xl bg-white px-6">
           <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30" />
