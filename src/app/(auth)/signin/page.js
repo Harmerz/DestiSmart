@@ -1,7 +1,29 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 export default function SignInHome() {
+  const router = useRouter()
+  const onFinish = async (e) => {
+    e.preventDefault()
+    console.log(e.target[0].value, e.target[1].value)
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: e?.target[0]?.value,
+        password: e?.target[1]?.value,
+      })
+      console.log(res)
+      if (!res?.error) {
+        router.refresh()
+      }
+    } catch (err) {
+      throw console.error(err)
+    }
+  }
   return (
     <div className="flex w-full flex-col items-center justify-center bg-background px-16">
       <div className="relative aspect-square w-4/5">
@@ -13,18 +35,20 @@ export default function SignInHome() {
         <br />
         Menurut BPS, Indonesia memiliki 2930 usaha objek daya tarik wisata (ODTW) pada 2022
       </p>
-      <div className="mt-20 flex w-full flex-col gap-5">
+      <form onSubmit={onFinish} className="mt-20 flex w-full flex-col gap-5">
         <input
+          required
           placeholder="email"
           type="email"
           className="w-full rounded-full border bg-transparent px-3 py-2"
         />
         <input
+          required
           placeholder="password"
           type="password"
           className="w-full rounded-full border bg-transparent px-3 py-2"
         />
-        <button className="rounded-full bg-main px-3 py-2 text-xl text-white" type="buttton">
+        <button className="rounded-full bg-main px-3 py-2 text-xl text-white" type="submit">
           Masuk
         </button>
         <p className="text-md -mt-3">
@@ -33,7 +57,7 @@ export default function SignInHome() {
             <span className="text-main">Regristasi di sini</span>
           </Link>
         </p>
-      </div>
+      </form>
     </div>
   )
 }

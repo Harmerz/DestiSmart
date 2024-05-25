@@ -1,3 +1,4 @@
+import { Providers } from '@/components'
 import './globals.css'
 
 import PropTypes from 'prop-types'
@@ -16,11 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <main className="w-screen">
-          <div className="mx-auto flex min-h-screen max-w-[414px] overflow-x-hidden">
-            {children}
-          </div>
-        </main>
+        <Providers>
+          <main className="w-screen">
+            <div className="mx-auto flex min-h-screen max-w-[414px] overflow-x-hidden">
+              {children}
+            </div>
+          </main>
+        </Providers>
       </body>
     </html>
   )
