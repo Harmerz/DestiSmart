@@ -1,0 +1,76 @@
+{
+  "Perempuan": {
+    "Pakaian": [
+      "Pakaian casual (kaos, celana, rok)",
+      "Pakaian tidur",
+      "Baju renang",
+      "Baju formal",
+      "Jaket",
+      "Pakaian dalam"
+    ],
+    "Alat Mandi": [
+      "Sikat gigi dan pasta gigi",
+      "Sabun mandi",
+      "Shampoo dan conditioner",
+      "Deodoran",
+      "Sisir",
+      "Handuk"
+    ],
+    "Alat Ibadah": ["Sajadah", "Mukena", "Al-Qur'an atau buku doa"],
+    "Obat-obatan": ["Obat pribadi", "Obat anti mabuk", "Plester luka", "Vitamin"],
+    "Perlengkapan Tambahan": [
+      "Koper",
+      "Masker",
+      "Tiket keberangkatan",
+      "Dompet",
+      "KTP",
+      "Uang tunai",
+      "Jas hujan atau payung",
+      "Power bank",
+      "Charger",
+      "Sepatu/sandal",
+      "Skincare",
+      "Makeup",
+      "Kamera",
+      "Earphone",
+      "Botol minum",
+      "Tas"
+    ]
+  },
+  "Laki-laki": {
+    "Pakaian": [
+      "Pakaian casual (kaos, celana)",
+      "Pakaian tidur",
+      "Baju renang",
+      "Baju formal",
+      "Jaket",
+      "Pakaian dalam"
+    ],
+    "Alat Mandi": [
+      "Sikat gigi dan pasta gigi",
+      "Sabun mandi",
+      "Shampoo dan conditioner",
+      "Deodoran",
+      "Sisir",
+      "Handuk"
+    ],
+    "Alat Ibadah": ["Sajadah", "Al-Qur'an atau buku doa", "Sarung"],
+    "Obat-obatan": ["Obat pribadi", "Obat anti mabuk", "Plester luka", "Vitamin"],
+    "Perlengkapan Tambahan": [
+      "Koper",
+      "Masker",
+      "Tiket keberangkatan",
+      "Dompet",
+      "KTP",
+      "Uang tunai",
+      "Jas hujan atau payung",
+      "Power bank",
+      "Charger",
+      "Sepatu/sandal",
+      "Kamera",
+      "Earphone",
+      "Botol minum",
+      "Tas"
+    ]
+  }
+}
