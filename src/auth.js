@@ -65,6 +65,7 @@ export const options = {
       if (user) {
         return {
           ...token,
+          id: user.id,
           name: user.name,
           email: user.email,
           accessToken: user.accessToken,
@@ -79,6 +80,7 @@ export const options = {
         ...session,
         user: {
           ...session.user,
+          id: token.id,
           name: token.name,
           email: token.email,
           accessToken: token.accessToken,
