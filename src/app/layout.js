@@ -7,7 +7,7 @@ export const metadata = {
   title: 'DestiSmart APP',
   description: 'DestiSmart Senior Project DTETI',
   manifest: '/manifest.json',
-  icons: ['/favicon.ico'],
+  icons: '/favicon.ico',
 }
 export const generateViewport = () => ({
   viewport: 'width=device-width, initial-scale=1',
