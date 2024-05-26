@@ -44,7 +44,7 @@ export default function Map({ position, setPosition, locate }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {locate.map((e) => (
+      {locate?.map((e) => (
         <Marker key={e} position={e?.location}>
           <Popup>{e.name}</Popup>
         </Marker>
