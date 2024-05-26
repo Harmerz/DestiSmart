@@ -30,6 +30,7 @@ export const options = {
           const { data } = res
           return {
             id: data.user._id,
+            gender: data.user.gender,
             email: data.user.email,
             name: data.user.firstName + data.user.lastName,
             accessToken: data.token,
@@ -68,6 +69,7 @@ export const options = {
           id: user.id,
           name: user.name,
           email: user.email,
+          gender: user.gender,
           accessToken: user.accessToken,
           accessTokenExpires: user.accessTokenExpires,
         }
@@ -82,6 +84,7 @@ export const options = {
           ...session.user,
           id: token.id,
           name: token.name,
+          gender: token.gender,
           email: token.email,
           accessToken: token.accessToken,
         },

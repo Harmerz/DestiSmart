@@ -57,7 +57,7 @@ export default function Home() {
         <div className="z-10 -mt-5 flex w-full flex-col items-center justify-end rounded-t-xl bg-white px-6 pb-12">
           <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30" />
           <p className="text-start text-2xl text-black">Tempat Terdekat dengan Anda</p>
-          <div className="mt-6 flex h-full w-full flex-col gap-2 bg-white">
+          <div className="mt-6 flex h-full w-full flex-col gap-2 bg-white text-start">
             {data?.map((item, index) => (
               <button
                 type="button"
@@ -80,7 +80,7 @@ export default function Home() {
                       <TbLocationShare /> {item?.distance?.toFixed(2) ?? '0'} km
                     </div>
                   </div>
-                  <p className="line-clamp-3 text-sm">{item?.description}</p>
+                  <p className="line-clamp-3 text-start text-sm">{item?.description}</p>
                 </div>
               </button>
             ))}

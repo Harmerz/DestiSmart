@@ -1,5 +1,5 @@
 {
-  "Perempuan": {
+  "female": {
     "Pakaian": [
       "Pakaian casual (kaos, celana, rok)",
       "Pakaian tidur",
@@ -37,7 +37,7 @@
       "Tas"
     ]
   },
-  "Laki-laki": {
+  "male": {
     "Pakaian": [
       "Pakaian casual (kaos, celana)",
       "Pakaian tidur",
