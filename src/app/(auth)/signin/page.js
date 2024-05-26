@@ -4,9 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useState } from 'react'
 
 export default function SignInHome() {
   const router = useRouter()
+  const [wrong, setWrong] = useState('')
   const onFinish = async (e) => {
     e.preventDefault()
     try {
@@ -15,9 +17,13 @@ export default function SignInHome() {
         email: e?.target[0]?.value,
         password: e?.target[1]?.value,
       })
-      console.log(res)
       if (!res?.error) {
         router.refresh()
+      } else {
+        setWrong(JSON.parse(res?.error).message)
+        setTimeout(() => {
+          setWrong('')
+        }, 3000)
       }
     } catch (err) {
       throw console.error(err)
@@ -47,13 +53,14 @@ export default function SignInHome() {
           type="password"
           className="w-full rounded-full border bg-transparent px-3 py-2"
         />
+        {wrong !== '' && <div className="-mb-4 -mt-4 text-sm text-red-600">{wrong}</div>}
         <button className="rounded-full bg-main px-3 py-2 text-xl text-white" type="submit">
           Masuk
         </button>
         <p className="text-md -mt-3">
           Belum Punya Akun?{' '}
           <Link href="/signup">
-            <span className="text-main">Regristasi di sini</span>
+            <span className="text-main">Registrasi di sini</span>
           </Link>
         </p>
       </form>

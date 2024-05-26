@@ -8,9 +8,6 @@ export const useRegister = () => {
   return useApiMutation2({
     queryKey: ['/api/v1/auth/register'],
     mutationFun: async (_, data) => {
-      if (!accessToken) {
-        return null
-      }
       const res = await axios.post('/api/v1/auth/register', data, {
         headers,
       })
