@@ -3,22 +3,12 @@
 import plan from './plan.json'
 import { useState, useEffect } from 'react'
 import { BottomBar } from '@/components/bottomBar'
-
 function CheckBox({ name }) {
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(() => JSON.parse(localStorage.getItem(name) || 'false'))
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedValue = localStorage.getItem(name)
-      if (storedValue !== null) {
-        setCheck(JSON.parse(storedValue))
-      }
-    }
-  }, [name])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(name, JSON.stringify(check))
+      localStorage.setItem(name, check)
     }
   }, [check, name])
 
