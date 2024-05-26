@@ -36,22 +36,26 @@ function CheckBox({ name }) {
 
 export default function PlanPage() {
   return (
-    <div className="w-full overflow-y-auto bg-background">
-      <BottomBar />
-      <div className="border-b border-white px-3 py-2 text-lg font-medium text-white">
-        Rencana Wisata
+    <div className="relative w-full bg-background">
+      <div className="absolute bottom-0 w-full">
+        <BottomBar />
       </div>
-      <div className="w-full flex-1 px-4">
-        {Object.entries(plan['Perempuan']).map(([key, items]) => (
-          <div key={key}>
-            <div className="mb-2 mt-3 flex w-full border-b text-lg font-medium">{key}</div>
-            <div className=" grid grid-cols-2 gap-y-2">
-              {items.map((item, index) => (
-                <CheckBox key={index} name={item} />
-              ))}
+      <div className="h-screen w-full overflow-y-auto">
+        <div className="border-b border-white px-3 py-2 text-lg font-medium text-white">
+          Rencana Wisata
+        </div>
+        <div className="w-full flex-1 px-4">
+          {Object.entries(plan['Perempuan']).map(([key, items]) => (
+            <div key={key}>
+              <div className="mb-2 mt-3 flex w-full border-b text-lg font-medium">{key}</div>
+              <div className=" grid grid-cols-2 gap-y-2">
+                {items.map((item, index) => (
+                  <CheckBox key={index} name={item} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

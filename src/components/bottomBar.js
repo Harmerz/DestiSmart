@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export function BottomBar() {
   return (
-    <div className="fixed bottom-0 z-20 grid w-full max-w-[414px] grid-cols-4 justify-center bg-background">
+    <div className=" z-20 grid w-full max-w-[414px] grid-cols-4 justify-center bg-background">
       <Link href="/home">
         <div className="flex w-full justify-center py-3">
           <IoHomeSharp className="h-6 w-6" />
