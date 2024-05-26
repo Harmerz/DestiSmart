@@ -5,8 +5,9 @@ import Image from 'next/image'
 import { TbLocationShare } from 'react-icons/tb'
 import { BottomBar } from '@/components/bottomBar'
 import { LuLoader2 } from 'react-icons/lu'
-import { useGetListLocation } from '@/hooks/chat'
+import { useGetListLocation, useCreateConversation } from '@/hooks/chat'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const LazyMap = dynamic(() => import('@/app/map/_map'), {
   ssr: false,
@@ -20,6 +21,18 @@ const LazyMap = dynamic(() => import('@/app/map/_map'), {
 export default function Home() {
   const [position, setPosition] = useState(null)
   const [displayCount, setDisplayCount] = useState(10)
+  const router = useRouter()
+  const { mutate: CreateConversation, data: conversation } = useCreateConversation()
+  useEffect(() => {
+    if (conversation) {
+      router.push(`/chat/${conversation?.conversation?._id}`)
+    }
+  }, [conversation])
+
+  const handleClick = (name) => {
+    CreateConversation({ destination: name })
+  }
+
   const { data, refetch } = useGetListLocation({
     ...position,
     display: displayCount,
@@ -41,12 +54,17 @@ export default function Home() {
           <div className="h-[90vh]" />
         </div>
 
-        <div className="z-10 -mt-5 flex w-full flex-col items-center justify-end rounded-t-xl bg-white px-6">
+        <div className="z-10 -mt-5 flex w-full flex-col items-center justify-end rounded-t-xl bg-white px-6 pb-12">
           <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30" />
           <p className="text-start text-2xl text-black">Tempat Terdekat dengan Anda</p>
           <div className="mt-6 flex h-full w-full flex-col gap-2 bg-white">
             {data?.map((item, index) => (
-              <div key={index} className="flex w-full flex-row gap-2 rounded border bg-white p-1">
+              <button
+                type="button"
+                onClick={() => handleClick(item?.name)}
+                key={index}
+                className="flex w-full flex-row gap-2 rounded border bg-white p-1"
+              >
                 <div className="relative flex aspect-[4/3] min-h-[100px] w-full rounded-sm">
                   <Image
                     src={`/assets/wisata/${item?.name?.toLowerCase().replace(/ /g, '-')}.jpg`}
@@ -64,7 +82,7 @@ export default function Home() {
                   </div>
                   <p className="line-clamp-3 text-sm">{item?.description}</p>
                 </div>
-              </div>
+              </button>
             ))}
             <button
               onClick={loadMore}
