@@ -76,7 +76,6 @@ export default function HomePage() {
   const handleDateChange = (dates) => {
     if (dates && dates.length === 2) {
       const formattedDates = dates.map((date) => (date ? date.format('YYYY-MM-DD') : null))
-      console.log(formattedDates)
       setInput({
         ...input,
         startDate: formattedDates[0],

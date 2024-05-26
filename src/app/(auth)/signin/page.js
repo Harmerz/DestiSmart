@@ -9,7 +9,6 @@ export default function SignInHome() {
   const router = useRouter()
   const onFinish = async (e) => {
     e.preventDefault()
-    console.log(e.target[0].value, e.target[1].value)
     try {
       const res = await signIn('credentials', {
         redirect: false,

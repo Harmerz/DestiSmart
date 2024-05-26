@@ -47,7 +47,6 @@ export default function Page({ params }) {
   useEffect(() => {
     refetch()
   }, [params])
-  console.log(load)
   return (
     <div className="relative flex h-screen w-full flex-col bg-background pb-14 text-sm">
       <div className="mb-4 flex flex-row items-center gap-2 rounded-b-lg border-b border-white bg-background px-2 py-4">
