@@ -24,10 +24,13 @@ export default function Page({ params }) {
   const { data, refetch, isLoading } = useGetConversation(params?.id)
   const { mutate: SendMessages, isSuccess } = useSendMessages()
   const [prompt, setPrompt] = useState('')
+  const [temp, setTemp] = useState('')
   const [load, setLoading] = useState(false)
-  const handleSend = () => {
+  const handleSend = (e) => {
+    e.preventDefault()
     if (prompt !== '') {
       setLoading(true)
+      setTemp(prompt)
       SendMessages({
         conversationID: params?.id,
         destination: data?.conversation?.name,
@@ -42,6 +45,7 @@ export default function Page({ params }) {
 
   useEffect(() => {
     setLoading(false)
+    setTemp('')
   }, [data])
 
   useEffect(() => {
@@ -53,16 +57,21 @@ export default function Page({ params }) {
         <Link href="/chat">
           <FaArrowLeft className="h-5 w-5 text-white" />
         </Link>
-        Tempat Wisata
+        {data?.conversation?.name}
       </div>
       {isLoading && data?.conversation?._id !== params?.id ? (
         <LuLoader2 className="mx-auto h-10  w-10 animate-spin text-main" />
       ) : (
         <div className="no-scrollbar flex h-full flex-col-reverse gap-4 overflow-y-auto px-3 pb-4">
           {load && (
-            <div className="mx-auto mb-5 h-10 w-10">
-              <LuLoader2 className="mx-auto h-10  w-10 animate-spin text-main" />
-            </div>
+            <>
+              <div className="mx-auto mb-5 h-10 w-10">
+                <LuLoader2 className="mx-auto h-10  w-10 animate-spin text-main" />
+              </div>
+              <div className="ml-auto flex h-auto w-fit rounded-[20px] bg-slate-800 px-3 py-2">
+                {temp}
+              </div>
+            </>
           )}
           {data?.messages?.map((e, index) => (
             <div key={index} className="flex flex-col gap-2">
@@ -84,7 +93,10 @@ export default function Page({ params }) {
 
       {/* Add Chat */}
       <div className="absolute bottom-3 w-full bg-transparent">
-        <div className="relative flex w-full flex-row gap-2 bg-transparent px-3">
+        <form
+          onSubmit={handleSend}
+          className="relative flex w-full flex-row gap-2 bg-transparent px-3"
+        >
           <input
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
@@ -92,13 +104,12 @@ export default function Page({ params }) {
           />
           <button
             disabled={prompt === ''}
-            onClick={handleSend}
-            type="button"
+            type="submit"
             className={`absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full  p-2 ${prompt === '' ? 'bg-slate-500' : 'bg-white'}`}
           >
             <FaArrowUp className="text-background" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   )
