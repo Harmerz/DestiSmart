@@ -75,7 +75,7 @@ export default function Home() {
                 </div>
                 <div className="flex w-full flex-col text-black">
                   <div className="flex flex-row items-center justify-between">
-                    <h3 className="font-bold">{item?.name}</h3>
+                    <h3 className="font-bold text-start">{item?.name}</h3>
                     <div className="flex flex-row items-center justify-center gap-1 text-[10px] text-gray-400">
                       <TbLocationShare /> {item?.distance?.toFixed(2) ?? '0'} km
                     </div>
