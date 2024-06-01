@@ -47,17 +47,17 @@ export default function Home() {
   }
 
   return (
-    <div className="relative flex w-full max-w-[414px] flex-col items-center justify-center bg-background">
+    <div className="relative flex w-full flex-col items-center justify-center bg-background md:flex-row">
       <div className="no-scrollbar flex h-full max-h-screen w-full flex-col overflow-y-scroll">
-        <div className="relative flex h-[90%] w-full items-center justify-center bg-background">
+        <div className="relative flex h-[90%] w-full items-center justify-center bg-background md:h-full">
           <LazyMap position={position} setPosition={setPosition} locate={data} />
-          <div className="h-[90vh]" />
+          <div className="h-[90vh] md:h-screen" />
         </div>
 
-        <div className="z-10 -mt-5 flex w-full flex-col items-center justify-end rounded-t-xl bg-white px-6 pb-12">
-          <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30" />
+        <div className="z-10 -mt-5 flex w-full flex-col items-center justify-end rounded-t-xl bg-white pb-12 md:absolute md:right-4 md:top-10 md:max-h-[90vh] md:max-w-md md:overflow-y-auto md:rounded-xl md:pt-10">
+          <button className="mt-3 h-1 w-10 rounded-full bg-black bg-opacity-30 md:hidden" />
           <p className="text-start text-2xl text-black">Tempat Terdekat dengan Anda</p>
-          <div className="mt-6 flex h-full w-full flex-col gap-2 bg-white text-start">
+          <div className="mt-6 flex h-full w-full flex-col gap-2 bg-white px-6 text-start md:max-h-[90vh] md:overflow-y-auto">
             {data?.map((item, index) => (
               <button
                 type="button"
@@ -75,7 +75,7 @@ export default function Home() {
                 </div>
                 <div className="flex w-full flex-col text-black">
                   <div className="flex flex-row items-center justify-between">
-                    <h3 className="font-bold text-start">{item?.name}</h3>
+                    <h3 className="text-start font-bold">{item?.name}</h3>
                     <div className="flex flex-row items-center justify-center gap-1 text-[10px] text-gray-400">
                       <TbLocationShare /> {item?.distance?.toFixed(2) ?? '0'} km
                     </div>

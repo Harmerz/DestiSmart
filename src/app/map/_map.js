@@ -8,6 +8,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility'
 // END: Preserve spaces to avoid auto-sorting
 import { MapContainer, useMapEvents, Marker, Popup, TileLayer, CircleMarker } from 'react-leaflet'
+import { useEffect } from 'react'
 
 export default function Map({ position, setPosition, locate }) {
   function LocationMarker() {
