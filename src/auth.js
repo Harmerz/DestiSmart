@@ -32,7 +32,7 @@ export const options = {
             id: data.user._id,
             gender: data.user.gender,
             email: data.user.email,
-            name: data.user.firstName + data.user.lastName,
+            name: data.user.firstName + ' ' + data.user.lastName,
             accessToken: data.token,
             accessTokenExpires: Date.now() + ACCESS_TOKEN_EXP_AUTH_OPTION_IN_MS,
           }
