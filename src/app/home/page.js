@@ -101,8 +101,8 @@ export default function HomePage() {
   }
 
   return (
-    <div className="relative h-full min-h-screen w-full bg-background px-3">
-      <div className="no-scrollbar flex h-screen w-full flex-col overflow-y-auto pb-12">
+    <div className="container relative flex h-full min-h-screen w-full max-w-full flex-col overflow-y-auto overflow-x-hidden bg-background md:flex-row">
+      <div className="no-scrollbar flex w-full grow-0 flex-col px-8 pb-12 md:max-w-sm">
         <div className="mt-3 flex w-full flex-row justify-between">
           <p>Hi, {session?.user?.name}</p>
           <div className="relative">
@@ -160,13 +160,14 @@ export default function HomePage() {
         >
           Mulai Petualangan
         </button>
-
+      </div>
+      <div className="flex grow flex-col overflow-x-hidden  px-6 pb-12 md:border-l">
         {click && !data ? (
           <LuLoader2 className="mx-auto mt-10 h-10 w-10 animate-spin text-main" />
         ) : (
           <>
             {data && (
-              <div className="mt-3">
+              <div className="mt-3 w-full">
                 <p className="text-lg font-medium text-text">Rekomendasi Wisata</p>
                 <div className=" flex flex-row rounded-md border px-3 py-2">
                   <Recommendations recommendations={data} />
@@ -174,7 +175,7 @@ export default function HomePage() {
               </div>
             )}
             {dataHotel && (
-              <div className="mt-3">
+              <div className="mt-3 w-full">
                 <p className="text-lg font-medium text-text">Rekomendasi Hotel</p>
                 <div className=" flex flex-row rounded-md border px-3 py-2">
                   <Recommendations recommendations={dataHotel} />
@@ -182,7 +183,7 @@ export default function HomePage() {
               </div>
             )}
             {dataMakanan && (
-              <div className="mt-3">
+              <div className="mt-3 w-full">
                 <p className="text-lg font-medium text-text">Rekomendasi Makanan</p>
                 <div className=" flex flex-row rounded-md border px-3 py-2">
                   <Recommendations recommendations={dataMakanan} />
