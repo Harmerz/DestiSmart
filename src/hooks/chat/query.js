@@ -16,7 +16,7 @@ export const useGetConversation = (idChat) => {
       return res?.data?.data
     },
     staleTime: 15 * 60 * 1000,
-    enabled: !!accessToken,
+    enabled: !!accessToken && !!idChat,
   })
 }
 
