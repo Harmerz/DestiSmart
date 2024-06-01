@@ -19,9 +19,7 @@ export default function RootLayout({ children }) {
       <body>
         <Providers>
           <main className="w-screen">
-            <div className="mx-auto flex min-h-screen max-w-[414px] overflow-x-hidden">
-              {children}
-            </div>
+            <div className="mx-auto flex min-h-screen overflow-x-hidden">{children}</div>
           </main>
         </Providers>
       </body>
