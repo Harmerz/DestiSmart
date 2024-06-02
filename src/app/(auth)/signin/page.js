@@ -31,11 +31,11 @@ export default function SignInHome() {
   }
   return (
     <div className="flex min-h-screen w-full flex-row">
-      <div className="relative hidden h-full grow md:block">
+      <div className="relative hidden h-screen grow md:flex">
         <div className="absolute z-10 flex h-full w-full bg-black bg-opacity-40" />
         <Image src="/assets/tugu-home.jpg" className="z-0 object-cover" fill alt="Tugu" />
       </div>
-      <div className="flex h-full w-full grow-0 flex-col items-center justify-center bg-background px-16 md:max-w-md">
+      <div className="flex h-screen w-full grow-0 flex-col items-center justify-center bg-background px-16 md:max-w-md">
         <div className="relative aspect-square w-1/2 md:w-4/5">
           <Image src="/assets/DestiSmart.png" fill alt="Logo" />
         </div>
